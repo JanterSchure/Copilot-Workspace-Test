@@ -1,0 +1,22 @@
+{
+  "name": "Blazor Release Container",
+  "image": "mcr.microsoft.com/dotnet/aspnet:6.0",
+  "features": {
+    "ghcr.io/devcontainers/features/dotnet:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit"
+      ]
+    }
+  },
+  "postCreateCommand": "dotnet publish -c Release -o /app",
+  "runArgs": [
+    "--rm",
+    "-p 80:80",
+    "-p 443:443"
+  ],
+  "entrypoint": "dotnet /app/WorkspaceTest.dll"
+}
