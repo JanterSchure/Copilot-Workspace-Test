@@ -1,0 +1,55 @@
+@page "/calculator"
+@using System.Data
+
+<PageTitle>Calculator</PageTitle>
+
+<h1>Calculator</h1>
+
+<div class="calculator">
+    <input type="text" @bind="input" readonly class="calculator-input" />
+    <div class="calculator-grid">
+        <button @onclick="() => AppendToInput('1')">1</button>
+        <button @onclick="() => AppendToInput('2')">2</button>
+        <button @onclick="() => AppendToInput('3')">3</button>
+        <button @onclick="() => AppendToInput('+')">+</button>
+        <button @onclick="() => AppendToInput('4')">4</button>
+        <button @onclick="() => AppendToInput('5')">5</button>
+        <button @onclick="() => AppendToInput('6')">6</button>
+        <button @onclick="() => AppendToInput('-')">-</button>
+        <button @onclick="() => AppendToInput('7')">7</button>
+        <button @onclick="() => AppendToInput('8')">8</button>
+        <button @onclick="() => AppendToInput('9')">9</button>
+        <button @onclick="() => AppendToInput('*')">*</button>
+        <button @onclick="() => AppendToInput('0')">0</button>
+        <button @onclick="() => AppendToInput('.')">.</button>
+        <button @onclick="ClearInput">C</button>
+        <button @onclick="CalculateResult">=</button>
+    </div>
+</div>
+
+@code {
+    private string input = "";
+
+    private void AppendToInput(char value)
+    {
+        input += value;
+    }
+
+    private void ClearInput()
+    {
+        input = "";
+    }
+
+    private void CalculateResult()
+    {
+        try
+        {
+            var result = new DataTable().Compute(input, null);
+            input = result.ToString();
+        }
+        catch
+        {
+            input = "Error";
+        }
+    }
+}
